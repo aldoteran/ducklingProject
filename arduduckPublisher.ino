@@ -16,22 +16,25 @@ The Node must be initialized in the main.pde function.
 ros::NodeHandle arduNode;
 
 //define message type, nmea?
-ros::Publisher duckPublisher("/duckchatter", &nmea_msg);
+ros::Publisher duckPublisher("/duckchatter", queuesize=10, &nmea_msg); //determine queuesize?
 
 //DEFINE THE DATA TO BE PUBLISHED
-duck_msg = nmea_msg
+duck_msg = nmea_msg //should one message be one type of information (i.e. just GPS, or all relevant data in this time stamp?)
+
+
+
 
 void setup()
 {
+  Serial.begin(115200)
   arduNode.initNode();
   arduNode.advertise(duckchatter);
-  Serial.begin(115000);//baudrate
 }
 
 void loop()
 {
   nmea_msg.data = DATA;
   duckchatter.publish( &duck_msg):
-  arduNode.spinOnce(); //find out
+  arduNode.spinOnce(); //determine spin rate
   ***DETERMINE PUBLISHING TIME ***
 }
